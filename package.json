@@ -1,16 +1,16 @@
 {
   "name": "quick-bookmarks-menu",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "A chrome extension gives you quick access to your bookmarks.",
   "scripts": {
     "predev": "npm run clean",
-    "dev": "npm run build:static && NODE_ENV=development node build.js",
+    "dev": "npm run build:static && set NODE_ENV=development && node build.js",
     "prebuild": "npm run clean",
-    "build": "npm run build:static && NODE_ENV=production node build.js",
+    "build": "npm run build:static && set NODE_ENV=production && node build.js",
     "prepack": "npm run build",
     "pack": "7z a build/build.zip ./build/*",
-    "clean": "rm -rf build/*",
-    "build:static": "cp -r public/. build/"
+    "clean": "rimraf build/",
+    "build:static": "xcopy /E /I public build\\"
   },
   "keywords": ["chrome-extension", "bookmarks"],
   "repository": {
