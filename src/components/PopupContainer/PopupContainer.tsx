@@ -134,10 +134,15 @@ export default function PopupContainer(props: PopupContainerProps) {
     const horiz = config.scroll === 'x';
     const calcWidth = () => {
         if (props.page.type === 'options') {
+            // 进入设置页面时重新设置宽度为300px
+            document.body.style.width = '300px'
             return 300;
         } else {
             const activeList = lists.find(list => list.active);
             const count = activeList ? activeList.items.length : 0;
+            // 根据横向的实际宽度设置body的宽度，最宽为800px
+            const bodyWidth = (Math.trunc((count - 1) / 18) + 1) * 200;
+            document.body.style.width = (bodyWidth > 800 ? 800 : bodyWidth) + "px";
             return (Math.trunc((count - 1) / 18) + 1) * 200;
         }
     };
