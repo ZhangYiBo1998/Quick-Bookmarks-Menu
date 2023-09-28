@@ -16,6 +16,7 @@ function Popup(props: PopupProps) {
     const [page, setPage] = useState<Page>({ type: 'folder', key: config.startup[0] });
     const [msgs, setMsgs] = useState<Message[]>([]);
     const [hidden, setHidden] = useState(config.hidden);
+    const [removeBookmarksId, setRemoveBookmarksId] = useState('');
 
     const navigate = (type: Page["type"], key: Page["key"]) => {
         setPage({ type, key });
@@ -41,13 +42,19 @@ function Popup(props: PopupProps) {
         });
     };
 
+    // 更新收藏夹列表
+    const removeBookmarksCallback = (id:string) => {
+        console.log('更新收藏夹列表')
+        setRemoveBookmarksId(id);
+    }
+
     applyTheme(config.theme);
     return (
         <ContextWrapper nav={navigate} config={[config, setConfig]} notify={notify} hide={setItemHide}>
             <PopupHeader page={page} msgs={msgs} clearMsg={clearMsg} horiz={config.scroll === 'x'} />
-            <PopupContainer page={page} hidden={hidden} />
+            <PopupContainer page={page} hidden={hidden} removeBookmarksId={removeBookmarksId} />
             <PopupFooter page={page} hidden={hidden} />
-            <ContextMenu />
+            <ContextMenu removeBookmarksCallback={removeBookmarksCallback} />
         </ContextWrapper>
     );
 }

@@ -3,7 +3,9 @@ import { useEffect, useState, useContext, useRef } from 'preact/hooks';
 import { HideContext, NotifyContext, ConfigContext } from '../ContextWrapper';
 import './ContextMenu.scss';
 
-interface ContextMenuProps { };
+interface ContextMenuProps {
+    removeBookmarksCallback: (id:string) => void;
+};
 
 interface Bookmark {
     id: string;
@@ -14,7 +16,7 @@ interface Bookmark {
 
 type Position = [x: number, y: number];
 
-export default function ContextMenu({ }: ContextMenuProps) {
+export default function ContextMenu(props: ContextMenuProps) {
     const notify = useContext(NotifyContext);
     const setItemHide = useContext(HideContext);
     const [config] = useContext(ConfigContext);
@@ -120,6 +122,28 @@ export default function ContextMenu({ }: ContextMenuProps) {
         }
     };
 
+    /*
+    * 删除书签
+    * */
+    const removeBookmarks = () => {
+
+        // 判断是否是文件夹
+        if(bookmark.url){
+            // 删除书签
+            chrome.bookmarks.remove(bookmark.id, () => {
+                // 更新收藏夹列表
+                props.removeBookmarksCallback(bookmark.id);
+            })
+        }else{
+            // 删除目录
+            chrome.bookmarks.removeTree(bookmark.id, () => {
+                // 更新收藏夹列表
+                props.removeBookmarksCallback(bookmark.id);
+            })
+        }
+
+    }
+
     return (
         <ul className={`context-menu ${show ? 'show' : 'hide'}`} style={{ top: pos[1], left: pos[0] }} ref={menuRef}>
             {
@@ -133,6 +157,7 @@ export default function ContextMenu({ }: ContextMenuProps) {
                 </>
             }
             <li onClick={handleHideClick}>{bookmark.active ? chrome.i18n.getMessage('menu_hide') : chrome.i18n.getMessage('menu_show')}</li>
+            <li onClick={removeBookmarks}>{chrome.i18n.getMessage(bookmark.url ? 'menu_remove_bookmarks' : 'menu_remove_bookmarks_tree')}</li>
         </ul>
     );
 }

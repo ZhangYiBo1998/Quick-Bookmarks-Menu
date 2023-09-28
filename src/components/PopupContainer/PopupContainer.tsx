@@ -12,7 +12,7 @@ interface BookmarkList {
     active: boolean;
 }
 
-const useBookmarks = (initialPage: Page, initialHidden: string[], callback: Function): [BookmarkList[], Function] => {
+const useBookmarks = (initialPage: Page, initialHidden: string[], initialRemoveBookmarksId:string, callback: Function): [BookmarkList[], Function] => {
     const [lists, setLists] = useState<BookmarkList[]>([]);
     const [page, setPage] = useState(initialPage);
     const [hidden, setHidden] = useState(initialHidden);
@@ -114,6 +114,24 @@ const useBookmarks = (initialPage: Page, initialHidden: string[], callback: Func
         loadHiddenList();
     }, [hidden]);
 
+    useEffect(() => {
+        console.log('更新removeBookmarksId:',initialRemoveBookmarksId);
+        if (initialRemoveBookmarksId){
+            const existListIndex = lists.findIndex(list => list.key === page.key);
+            const existList = lists[existListIndex];
+            if (existList){
+                let items = existList.items || []
+                items = items.filter(item => {
+                    return item.id !== initialRemoveBookmarksId;
+                }) || []
+                existList.items = items;
+                let _lists = [...lists];
+                _lists[existListIndex] = existList;
+                setLists([..._lists]);
+            }
+        }
+    }, [initialRemoveBookmarksId]);
+
     return [lists, (page: Page, hidden: string[]) => {
         setPage(page);
         setHidden(hidden);
@@ -123,15 +141,17 @@ const useBookmarks = (initialPage: Page, initialHidden: string[], callback: Func
 interface PopupContainerProps {
     page: Page;
     hidden: string[];
+    removeBookmarksId: string;
 }
 
 export default function PopupContainer(props: PopupContainerProps) {
     const containerRef = useRef<HTMLDivElement>(null);
-    const [lists, loadBookmarks] = useBookmarks(props.page, props.hidden, () => {
+    const [lists, loadBookmarks] = useBookmarks(props.page, props.hidden, props.removeBookmarksId, () => {
         containerRef.current && (containerRef.current.scrollTo(0, 0));
     });
     const [config, setConfig] = useContext(ConfigContext);
     const horiz = config.scroll === 'x';
+
     const calcWidth = () => {
         if (props.page.type === 'options') {
             // 进入设置页面时重新设置宽度为300px

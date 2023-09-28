@@ -118,5 +118,11 @@
     },
     "menu_show": {
         "message": "Show bookmark"
+    },
+    "menu_remove_bookmarks": {
+        "message": "delete bookmark"
+    },
+    "menu_remove_bookmarks_tree": {
+        "message": "delete folder"
     }
 }
