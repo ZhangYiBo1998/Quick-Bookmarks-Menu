@@ -5,14 +5,14 @@ import './ContextMenu.scss';
 
 interface ContextMenuProps {
     removeBookmarksCallback: (id:string) => void;
-};
+}
 
 interface Bookmark {
     id: string;
     title: string;
     url?: string;
     active: boolean;
-};
+}
 
 type Position = [x: number, y: number];
 
@@ -55,7 +55,7 @@ export default function ContextMenu(props: ContextMenuProps) {
         // make sure menu is not out of viewport
         let menu: any = menuRef.current;
         if (!menu || !menu.clientWidth || !menu.clientHeight) {
-            menu = { clientWidth: 140, clientHeight: 120 };
+            menu = { clientWidth: 140, clientHeight: 150 };
         }
         const deltaX = window.innerWidth - menu.clientWidth - point[0];
         const deltaY = window.innerHeight - menu.clientHeight - point[1];
