@@ -1,7 +1,7 @@
 {
     "name": "__MSG_extname__",
     "description": "__MSG_extdesc__",
-    "version": "0.6.1",
+    "version": "0.6.3",
     "manifest_version": 2,
     "icons": {
         "16": "icons/qbm16.png",
@@ -19,6 +19,7 @@
     },
     "permissions": [
         "bookmarks",
+        "fileSystem",
         "chrome://favicon/",
         "storage"
     ],

@@ -1,6 +1,6 @@
 {
   "name": "quick-bookmarks-menu",
-  "version": "0.6.1",
+  "version": "0.6.3",
   "description": "A chrome extension gives you quick access to your bookmarks.",
   "scripts": {
     "predev": "npm run clean",
