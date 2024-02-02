@@ -123,7 +123,7 @@ export default function PopupHeader(props: PopupHeaderProps) {
                     <BookmarkPath {...path} />
                 )}
             </div>
-            <input className={`popup-header-search ${props.page.type === 'search' ? 'show-flex' : 'hide'}`}
+            <input title="searchInput" className={`popup-header-search ${props.page.type === 'search' ? 'show-flex' : 'hide'}`}
                 type="text" onInput={onInput} value={props.page.key} ref={searchInput} />
             <div className={`popup-header-hidden ${props.page.type === 'hidden' ? 'show-inline' : 'hide'}`}>
                 {chrome.i18n.getMessage("hidden_list")}

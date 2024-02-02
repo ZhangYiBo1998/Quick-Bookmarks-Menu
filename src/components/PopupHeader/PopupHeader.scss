@@ -88,8 +88,11 @@
     &-search {
         flex: auto;
         padding-left: 10px;
+        -webkit-user-select: text;
+        -moz-user-select: text;
+        -ms-user-select: text;
         user-select: text;
-    
+
         &:focus {
             outline: none;
             background-color: var(--hover-color);
@@ -100,5 +103,5 @@
         flex: auto;
         text-align: center;
         font-weight: bold;
-    } 
+    }
 }
