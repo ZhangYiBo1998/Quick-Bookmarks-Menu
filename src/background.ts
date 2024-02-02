@@ -4,10 +4,10 @@ chrome.storage.local.get(['openIn', 'openInMiddle', 'doNotClose', 'hoverEnter', 
         openIn: 'new',
         openInMiddle: 'background',
         doNotClose: 'none',
-        hoverEnter: 'medium',
+        hoverEnter: 'off',
         root: '0',
         theme: 'auto',
-        scroll: 'y',
+        scroll: 'x',
         hidden: [],
         showHidden: false
     };
