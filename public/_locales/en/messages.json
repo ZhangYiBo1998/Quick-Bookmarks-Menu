@@ -1,9 +1,9 @@
 {
     "extname": {
-        "message": "Quick Bookmarks Menu-fix"
+        "message": "Quick Bookmarks Menu"
     },
     "extdesc": {
-        "message": "Quick access to bookmarks or favorites. Personal repair version"
+        "message": "Quick access to bookmarks or favorites."
     },
     "tooltip": {
         "message": "Quick Bookmarks Menu"
