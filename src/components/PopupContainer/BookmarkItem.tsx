@@ -1,5 +1,5 @@
 import {h} from "preact";
-import {useContext, useState} from "preact/hooks";
+import {useContext} from "preact/hooks";
 import {ConfigContext, NavContext} from "../ContextWrapper";
 import "./BookmarkItem.scss";
 
